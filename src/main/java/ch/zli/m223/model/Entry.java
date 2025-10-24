@@ -6,6 +6,7 @@ import ch.zli.m223.dto.EntryDto;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Entry {
@@ -19,6 +20,22 @@ public class Entry {
 
   @Column(nullable = false)
   private LocalDateTime checkOut;
+
+  @ManyToOne
+  @JoinColumn(name = "categories_id")
+  private Category categories;
+
+  @ManyToOne
+  @JoinColumn(name = "tag_id")
+  private Tag tag;
+
+  public Tag getTag() {
+    return tag;
+  }
+
+  public void setTag(Tag tag) {
+    this.tag = tag;
+  }
 
   public Long getId() {
     return id;
@@ -44,11 +61,16 @@ public class Entry {
     this.checkOut = checkOut;
   }
 
+  public Category getCategories() {return categories;}
+  public void setCategories(Category categories) {this.categories = categories;}
+
   public EntryDto toDto() {
     EntryDto dto = new EntryDto();
     dto.setId(this.id);
     dto.setCheckIn(this.checkIn);
     dto.setCheckOut(this.checkOut);
+    dto.setCategory(this.categories);
+    dto.setTag(this.tag);
     return dto;
   }
 }
