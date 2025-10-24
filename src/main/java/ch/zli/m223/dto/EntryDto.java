@@ -1,24 +1,20 @@
-package ch.zli.m223.model;
-
-import javax.persistence.*;
-
-import ch.zli.m223.dto.EntryDto;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
+package ch.zli.m223.dto;
 
 import java.time.LocalDateTime;
+import ch.zli.m223.model.Entry;
 
-@Entity
-public class Entry {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Schema(readOnly = true)
+public class EntryDto {
   private Long id;
-
-  @Column(nullable = false)
   private LocalDateTime checkIn;
-
-  @Column(nullable = false)
   private LocalDateTime checkOut;
+
+  public EntryDto() {}
+
+  public EntryDto(Long id, LocalDateTime checkIn, LocalDateTime checkOut) {
+    this.id = id;
+    this.checkIn = checkIn;
+    this.checkOut = checkOut;
+  }
 
   public Long getId() {
     return id;
@@ -43,12 +39,11 @@ public class Entry {
   public void setCheckOut(LocalDateTime checkOut) {
     this.checkOut = checkOut;
   }
-
-  public EntryDto toDto() {
-    EntryDto dto = new EntryDto();
-    dto.setId(this.id);
-    dto.setCheckIn(this.checkIn);
-    dto.setCheckOut(this.checkOut);
-    return dto;
+  public Entry toDomain() {
+    Entry entry = new Entry();
+    entry.setId(this.id);
+    entry.setCheckIn(this.checkIn);
+    entry.setCheckOut(this.checkOut);
+    return entry;
   }
 }
