@@ -20,3 +20,7 @@ INSERT INTO entry (id, checkin, checkout, categories_id, tag_id) VALUES
                                                                    (5, '2025-10-29 08:30:00', '2025-10-29 09:30:00', 4, 3),
                                                                    (6, '2025-10-29 15:00:00', '2025-10-29 18:00:00', 2, 1)
 ON CONFLICT (id) DO NOTHING;
+
+SELECT setval(pg_get_serial_sequence('entry','id'),    (SELECT COALESCE(MAX(id),0) FROM entry),    true);
+SELECT setval(pg_get_serial_sequence('category','id'), (SELECT COALESCE(MAX(id),0) FROM category), true);
+SELECT setval(pg_get_serial_sequence('tag','id'),      (SELECT COALESCE(MAX(id),0) FROM tag),      true);

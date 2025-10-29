@@ -1,37 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Punchclock Client</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="script.js" type="application/javascript"></script>
-    </head>
-    <body>
-        <form id="createEntryForm">
-            <label for="checkIn">Check in</label>
-            <input type="date" name="checkInDate" id="checkIn" required>
-            <input type="time" name="checkInTime" required>
-            <label for="checkOut">Check out</label>
-            <input type="date" name="checkOutDate" id="checkOut" required>
-            <input type="time" name="checkOutTime" required>
-            <input type="submit" value="Save" />
-        </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Check in</th>
-                    <th>Check out</th>
-                </tr>
-            </thead>
-            <tbody id="entryDisplay">
-                <tr>
-                    <td colspan="3">Loading...</td>
-                </tr>
-            </tbody>
-        </table>
-    </body>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Punchclock Client</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="script.js" type="application/javascript" defer></script>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; }
+    form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; align-items: end; margin-bottom: 20px; }
+    form > label { font-weight: 600; }
+    form > .full { grid-column: 1 / -1; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid #e5e7eb; text-align: left; }
+    thead th { border-bottom: 2px solid #d1d5db; }
+    button { cursor: pointer; padding: 6px 10px; border-radius: 6px; border: 1px solid #d1d5db; background: #f9fafb; }
+    button:hover { background: #f3f4f6; }
+    input[type="submit"] { cursor: pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #2563eb; background: #3b82f6; color: white; }
+    input[type="submit"]:hover { background: #2563eb; }
+    select, input[type="date"], input[type="time"] { padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; }
+  </style>
+</head>
+<body>
+<h1>Punchclock Client</h1>
+
+<form id="createEntryForm">
+  <label for="checkIn">Check in</label>
+  <div>
+    <input type="date" name="checkInDate" id="checkIn" required />
+    <input type="time" name="checkInTime" required />
+  </div>
+
+  <label for="checkOut">Check out</label>
+  <div>
+    <input type="date" name="checkOutDate" id="checkOut" required />
+    <input type="time" name="checkOutTime" required />
+  </div>
+
+  <label for="categorySelect">Category</label>
+  <select id="categorySelect" name="categoryId" required>
+    <option value="" disabled selected>Bitte wählen…</option>
+  </select>
+
+  <label for="tagSelect">Tag</label>
+  <select id="tagSelect" name="tagId" required>
+    <option value="" disabled selected>Bitte wählen…</option>
+  </select>
+
+  <div class="full">
+    <input type="submit" value="Save" />
+  </div>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Check in</th>
+    <th>Check out</th>
+    <th>Category</th>
+    <th>Tag</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody id="entryDisplay">
+  <tr>
+    <td colspan="6">Loading...</td>
+  </tr>
+  </tbody>
+</table>
+</body>
 </html>
