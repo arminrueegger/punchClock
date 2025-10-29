@@ -25,6 +25,7 @@ public class Entry {
   @JoinColumn(name = "categories_id")
   private Category categories;
 
+
   @ManyToOne
   @JoinColumn(name = "tag_id")
   private Tag tag;
